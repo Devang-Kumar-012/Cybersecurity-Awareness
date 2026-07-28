@@ -922,9 +922,11 @@ a:focus-visible {
 
 .hero-section {
   padding: 4rem 0 2rem;
-  min-height: calc(100vh - 90px);
   display: flex;
   align-items: center;
+
+  /* Replace min-height */
+  min-height: auto;
 }
 
 .hero-shell {
