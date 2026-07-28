@@ -4,12 +4,12 @@ import { ArrowRight, Clock3, Menu, ShieldCheck, Sparkles, X, Radar, Accessibilit
 
 const links = [
   { label: 'Home', href: '#hero', id: 'hero' },
-  { label: 'Why It Matters', href: '#awareness', id: 'awareness' },
+//   { label: 'Why It Matters', href: '#awareness', id: 'awareness' },
   { label: 'Threats', href: '#threats', id: 'threats' },
-  { label: 'Interactive Lab', href: '#interactive', id: 'interactive' },
-  { label: 'Safety Toolkit', href: '#practices', id: 'practices' },
+//   { label: 'Interactive Lab', href: '#interactive', id: 'interactive' },
+//   { label: 'Safety Toolkit', href: '#practices', id: 'practices' },
   { label: 'Statistics', href: '#impact', id: 'impact' },
-  { label: 'Challenge', href: '#challenge', id: 'challenge' },
+//   { label: 'Challenge', href: '#challenge', id: 'challenge' },
   { label: 'Resources', href: '#resources', id: 'resources' },
   { label: 'Contact', href: '#contact', id: 'contact' }
 ];
