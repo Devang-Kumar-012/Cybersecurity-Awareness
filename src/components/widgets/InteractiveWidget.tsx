@@ -1,0 +1,1 @@
+// Placeholder interactive widget component.
