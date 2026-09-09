@@ -161,6 +161,25 @@ export function ChallengeSection() {
     setShowResults(false);
   };
 
+  const downloadCertificate = () => {
+    const certificate = `Cyber Aware Digital Certificate\nResult: ${resultLabel}\nScore: ${certificateScore}%`;
+    const blob = new Blob([certificate], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'cyber-aware-certificate.txt';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
+
+  const shareCertificate = async () => {
+    const shareData = { title: 'CyberSecure Certificate', text: `I scored ${certificateScore}% in the CyberSecure challenge.` };
+    if (navigator.share) {
+      await navigator.share(shareData);
+      return;
+    }
+    await navigator.clipboard?.writeText(shareData.text);
+  };
+
   const resultLabel = score >= 4 ? 'Cyber Aware' : score >= 3 ? 'Rising Strong' : 'Keep Building';
   const certificateScore = Math.min(100, score * 20);
 
@@ -377,14 +396,14 @@ export function ChallengeSection() {
                 </div>
               </div>
               <div className="certificate-actions">
-                <Button variant="secondary" size="sm" rightIcon={<Download size={14} />}>Download</Button>
-                <Button variant="primary" size="sm" rightIcon={<Share2 size={14} />}>Share</Button>
+                <Button variant="secondary" size="sm" rightIcon={<Download size={14} />} onClick={downloadCertificate}>Download</Button>
+                <Button variant="primary" size="sm" rightIcon={<Share2 size={14} />} onClick={shareCertificate}>Share</Button>
               </div>
             </div>
 
             <div className="results-actions">
               <Button variant="primary" rightIcon={<RefreshCw size={15} />} onClick={resetChallenge}>Try again</Button>
-              <Button variant="secondary" rightIcon={<ArrowRight size={15} />}>Continue learning</Button>
+              <Button variant="secondary" rightIcon={<ArrowRight size={15} />} onClick={() => window.location.hash = 'interactive'}>Continue learning</Button>
             </div>
           </motion.div>
         )}

@@ -1,15 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Clock3, Menu, ShieldCheck, Sparkles, X, Radar, Accessibility, Search } from 'lucide-react';
+import { ArrowRight, Menu, ShieldCheck, X, Accessibility, LogIn } from 'lucide-react';
 
 const links = [
+  { label: 'Journey', href: '#journey', id: 'journey' },
   { label: 'Home', href: '#hero', id: 'hero' },
-//   { label: 'Why It Matters', href: '#awareness', id: 'awareness' },
   { label: 'Threats', href: '#threats', id: 'threats' },
-//   { label: 'Interactive Lab', href: '#interactive', id: 'interactive' },
-//   { label: 'Safety Toolkit', href: '#practices', id: 'practices' },
-  { label: 'Statistics', href: '#impact', id: 'impact' },
-//   { label: 'Challenge', href: '#challenge', id: 'challenge' },
+  { label: 'Lab', href: '#interactive', id: 'interactive' },
+  { label: 'Toolkit', href: '#practices', id: 'practices' },
   { label: 'Resources', href: '#resources', id: 'resources' },
   { label: 'Contact', href: '#contact', id: 'contact' }
 ];
@@ -18,25 +16,14 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
-  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
-  const [clock, setClock] = useState('');
-  const navRef = useRef<HTMLDivElement | null>(null);
-  const linkRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const updateClock = () => {
-      setClock(
-        new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      );
-    };
-
-    updateClock();
-    const timer = window.setInterval(updateClock, 60000);
-    return () => window.clearInterval(timer);
+    const syncAuthState = () => setIsLoggedIn(window.localStorage.getItem('cybersecure-authenticated') === 'true');
+    syncAuthState();
+    window.addEventListener('cybersecure-auth-change', syncAuthState);
+    return () => window.removeEventListener('cybersecure-auth-change', syncAuthState);
   }, []);
 
   useEffect(() => {
@@ -52,15 +39,6 @@ export function SiteHeader() {
       })?.id ?? 'hero';
 
       setActiveSection(activeId);
-
-      const activeIndex = links.findIndex((link) => link.id === activeId);
-      const activeLink = linkRefs.current[activeIndex];
-      const container = navRef.current;
-      if (activeLink && container) {
-        const navRect = container.getBoundingClientRect();
-        const linkRect = activeLink.getBoundingClientRect();
-        setIndicatorStyle({ left: linkRect.left - navRect.left, width: linkRect.width });
-      }
     };
 
     let frame = 0;
@@ -98,36 +76,13 @@ export function SiteHeader() {
     setMenuOpen(false);
   };
 
+  const handleLogout = () => {
+    window.localStorage.removeItem('cybersecure-authenticated');
+    setIsLoggedIn(false);
+  };
+
   return (
     <header className={`site-header ${scrolled ? 'scrolled' : ''}`}>
-      <motion.div
-        className="header-top-bar"
-        initial={shouldReduceMotion ? false : { opacity: 0, y: -6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
-      >
-        <div className="container header-top-bar-inner">
-          <div className="header-top-bar-left">
-            <span className="status-pill">
-              <Radar size={12} />
-              Live cyber safety signal
-            </span>
-            <span className="header-top-bar-text">Learn. Protect. Stay Secure.</span>
-          </div>
-
-          <div className="header-top-bar-right">
-            <span className="header-top-bar-meta">
-              <Sparkles size={12} />
-              Interactive learning experience
-            </span>
-            <span className="header-top-bar-meta">
-              <Clock3 size={12} />
-              {clock || 'Live'}
-            </span>
-          </div>
-        </div>
-      </motion.div>
-
       <div className="container header-main-shell">
         <motion.div
           className={`nav-bar ${scrolled ? 'compact' : ''}`}
@@ -146,15 +101,11 @@ export function SiteHeader() {
             </div>
           </a>
 
-          <nav className="nav-links" ref={navRef} aria-label="Primary navigation">
-            <div className="nav-indicator" style={{ left: indicatorStyle.left, width: indicatorStyle.width }} />
-            {links.map((link, index) => (
+          <nav className="nav-links" aria-label="Primary navigation">
+            {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                ref={(node) => {
-                  linkRefs.current[index] = node;
-                }}
                 className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
                 aria-current={activeSection === link.id ? 'page' : undefined}
                 onClick={handleNavigate}
@@ -165,13 +116,17 @@ export function SiteHeader() {
           </nav>
 
           <div className="nav-actions">
-            <a href="#interactive" className="nav-utility" aria-label="Open interactive lab" onClick={handleNavigate}>
-              <Search size={16} />
-            </a>
-            <a href="#interactive" className="nav-cta" onClick={handleNavigate}>
-              Start Learning
-              <ArrowRight size={15} />
-            </a>
+            {isLoggedIn ? (
+              <button type="button" className="nav-login nav-account" onClick={handleLogout}>
+                <ShieldCheck size={15} />
+                <span>Signed in</span>
+              </button>
+            ) : (
+              <a href="/login" className="nav-login" onClick={handleNavigate}>
+                <LogIn size={15} />
+                <span>Log in</span>
+              </a>
+            )}
             <button
               type="button"
               className="nav-toggle"
@@ -231,9 +186,17 @@ export function SiteHeader() {
                   <Accessibility size={14} />
                   <span>Keyboard-ready and accessibility focused</span>
                 </div>
-                <a href="#interactive" className="mobile-menu-cta" onClick={handleNavigate}>
-                  Start the Interactive Lab
-                </a>
+                {isLoggedIn ? (
+                  <button type="button" className="mobile-menu-cta mobile-menu-login" onClick={handleLogout}>
+                    <ShieldCheck size={15} />
+                    Sign out
+                  </button>
+                ) : (
+                  <a href="/login" className="mobile-menu-cta mobile-menu-login" onClick={handleNavigate}>
+                    <LogIn size={15} />
+                    Log in to your journey
+                  </a>
+                )}
               </div>
             </div>
           </motion.div>

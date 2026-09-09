@@ -276,7 +276,7 @@ export function CommonThreatsSection() {
 
               <div className="detail-footer">
                 <span>Interactive awareness</span>
-                <Button variant="secondary" rightIcon={<ArrowRight size={15} />}>
+                <Button variant="secondary" rightIcon={<ArrowRight size={15} />} onClick={() => window.location.hash = 'challenge'}>
                   Explore more
                 </Button>
               </div>

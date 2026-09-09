@@ -147,7 +147,7 @@ export function InteractiveExperienceSection() {
 
                   <div className="workspace-topbar-actions">
                     <ProgressRing progress={10} label="Mission completion" />
-                    <Button variant="primary" rightIcon={<ArrowRight size={15} />}>
+                    <Button variant="primary" rightIcon={<ArrowRight size={15} />} onClick={() => window.location.hash = 'challenge'}>
                       Start Investigation
                     </Button>
                   </div>

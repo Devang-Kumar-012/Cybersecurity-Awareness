@@ -31,10 +31,10 @@ export function HeroSection() {
           </p>
 
           <div className="inline-actions hero-actions">
-            <Button variant="primary" rightIcon={<ArrowRight size={16} />}>
+            <Button variant="primary" rightIcon={<ArrowRight size={16} />} onClick={() => window.location.hash = 'journey'}>
               Start the Journey
             </Button>
-            <Button variant="secondary">Learn the Essentials</Button>
+            <Button variant="secondary" onClick={() => window.location.hash = 'awareness'}>Learn the Essentials</Button>
           </div>
 
           <ul className="hero-features" aria-label="Core promises">

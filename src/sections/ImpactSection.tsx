@@ -234,7 +234,7 @@ export function ImpactSection() {
             </Badge>
             <h3>Awareness is not a passive response. It is the foundation of every stronger defence.</h3>
           </div>
-          <Button variant="primary" rightIcon={<ArrowRight size={16} />}>
+          <Button variant="primary" rightIcon={<ArrowRight size={16} />} onClick={() => window.location.hash = 'challenge'}>
             Begin the challenge
           </Button>
         </motion.div>

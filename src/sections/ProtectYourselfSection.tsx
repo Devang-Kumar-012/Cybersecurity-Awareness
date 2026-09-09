@@ -497,7 +497,7 @@ export function ProtectYourselfSection() {
             </Badge>
             <h3>Cybersecurity is not about being an expert. It is about building smart digital habits, one step at a time.</h3>
           </div>
-          <Button variant="primary" rightIcon={<ArrowRight size={16} />}>
+          <Button variant="primary" rightIcon={<ArrowRight size={16} />} onClick={() => window.location.hash = 'impact'}>
             Explore the impact behind the habits
           </Button>
         </motion.div>

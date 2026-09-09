@@ -24,7 +24,7 @@ const footerLinks = [
   { label: 'Cyber Safety Toolkit', href: '#practices' },
   { label: 'Statistics', href: '#impact' },
   { label: 'Cyber Challenge', href: '#challenge' },
-  { label: 'Resources', href: '#resources' },
+  { label: 'Resources', href: '#contact' },
   { label: 'Contact', href: '#contact' }
 ];
 
@@ -71,6 +71,11 @@ export function SiteFooter() {
           <a href="#hero" className="footer-hero-cta">
             Restart Cyber Experience
             <ArrowRight size={15} />
+          </a>
+          <a href="tel:1930" className="footer-helpline">
+            <span>Cybersecurity Helpline</span>
+            <strong>1930</strong>
+            <small>Report cybercrime in India</small>
           </a>
         </motion.div>
 
@@ -200,6 +205,7 @@ export function SiteFooter() {
           <p>© 2026 CyberSecure. Built for cybersecurity education and awareness.</p>
           <p>Made with ❤️ for a safer digital world · Version 1.0 · Last updated 2026</p>
         </div>
+
       </div>
     </footer>
   );

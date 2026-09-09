@@ -1,24 +1,24 @@
 /* Global design tokens for the cybersecurity awareness experience */
 :root {
-  --color-bg: #07111f;
-  --color-bg-elevated: #0d1830;
-  --color-bg-soft: #101c33;
-  --color-text: #f7faff;
-  --color-text-muted: #d8e0ea;
-  --color-text-subtle: #8a96a8;
-  --color-primary: #35d7ff;
-  --color-primary-strong: #3fafff;
-  --color-secondary: #7a5cff;
-  --color-success: #2ed573;
-  --color-warning: #ffb84d;
-  --color-error: #ff4d5e;
-  --color-info: #4da3ff;
-  --surface-glass: rgba(255, 255, 255, 0.05);
-  --surface-glass-strong: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(53, 215, 255, 0.2);
-  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.16);
-  --shadow-glow: 0 0 30px rgba(53, 215, 255, 0.16);
+  --color-bg: #0b1220;
+  --color-bg-elevated: #111c2e;
+  --color-bg-soft: #16263d;
+  --color-text: #edf4f8;
+  --color-text-muted: #b8c7d3;
+  --color-text-subtle: #8295a7;
+  --color-primary: #38bdf8;
+  --color-primary-strong: #0ea5a4;
+  --color-secondary: #5eead4;
+  --color-success: #86efac;
+  --color-warning: #fbbf24;
+  --color-error: #fb7185;
+  --color-info: #7dd3fc;
+  --surface-glass: rgba(219, 239, 250, 0.06);
+  --surface-glass-strong: rgba(219, 239, 250, 0.1);
+  --border-soft: rgba(219, 239, 250, 0.14);
+  --border-strong: rgba(56, 189, 248, 0.32);
+  --shadow-soft: 0 18px 40px rgba(2, 8, 23, 0.28);
+  --shadow-glow: 0 0 30px rgba(56, 189, 248, 0.14);
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.25rem;
@@ -32,4 +32,3 @@
   --space-7: 3rem;
   --space-8: 4rem;
 }
-
