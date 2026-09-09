@@ -129,7 +129,7 @@ export function SiteFooter() {
             <p className="footer-credit">Developed by Sania Pal</p>
           </motion.div>
 
-          <motion.div
+          {/* <motion.div
             className="footer-panel"
             initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
             whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -144,7 +144,7 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </motion.div> */}
 
           <motion.div
             className="footer-panel"
