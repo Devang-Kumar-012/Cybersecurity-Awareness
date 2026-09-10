@@ -1,11 +1,11 @@
 import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Eye, EyeOff, LockKeyhole, ShieldCheck, UserPlus } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Eye, EyeOff, LockKeyhole, ShieldCheck, Sparkles, UserPlus } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function SignupPage() {
     const navigate = useNavigate();
-    const { signup } = useAuth();
+    const { signup, isAuthenticated, user } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -36,7 +36,7 @@ export function SignupPage() {
             setSubmitted(true);
             setTimeout(() => {
                 navigate('/');
-            }, 1500);
+            }, 1200);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');
         }
@@ -58,22 +58,34 @@ export function SignupPage() {
             </div>
             <div className="login-layout container">
                 <section className="login-intro">
-                    <Link to="/login" className="login-back"><ArrowLeft size={15} /> Back to Sign In</Link>
+                    <div className="login-back-row">
+                        <Link to="/" className="login-back"><ArrowLeft size={15} /> Back to CyberSecure</Link>
+                        <Link to="/login" className="login-back">Sign in instead</Link>
+                    </div>
                     <div className="login-brand-mark"><ShieldCheck size={24} /></div>
                     <p className="login-kicker">Start your secure journey</p>
                     <h1>Create your CyberSecure account.</h1>
-                    <p className="login-intro-copy">Join thousands learning to protect what matters most in the digital world. Track progress, complete missions, and build stronger security habits.</p>
-                    <div className="login-trust"><LockKeyhole size={16} /><span>Your data is encrypted and secure.</span></div>
+                    <p className="login-intro-copy">Track progress, complete hands-on missions, and build stronger security habits. Registration is completely optional — you are always free to explore as a guest.</p>
+                    <div className="login-trust"><LockKeyhole size={16} /><span>Optional account creation. Free forever.</span></div>
                 </section>
 
                 <section className="login-card" aria-labelledby="signup-title">
                     <div className="login-card-heading">
                         <p className="login-kicker">New member</p>
                         <h2 id="signup-title">Create your account</h2>
-                        <p>Start your cybersecurity awareness journey today.</p>
+                        <p>Sign up to personalize certificates, or explore without an account.</p>
                     </div>
 
-                    {submitted ? (
+                    {isAuthenticated && !submitted ? (
+                        <div className="login-success" role="status">
+                            <div className="login-success-icon"><Sparkles size={24} /></div>
+                            <h3>You already have an active session</h3>
+                            <p>Signed in as <strong>{user?.name || user?.email}</strong>.</p>
+                            <button type="button" className="btn btn-primary btn-md" onClick={() => navigate('/')}>
+                                Return to CyberSecure <ArrowRight size={16} className="login-continue-icon" />
+                            </button>
+                        </div>
+                    ) : submitted ? (
                         <div className="login-success" role="status">
                             <div className="login-success-icon"><ShieldCheck size={24} /></div>
                             <h3>Welcome aboard!</h3>
@@ -99,7 +111,7 @@ export function SignupPage() {
                                 name="email" 
                                 type="email" 
                                 placeholder="you@example.com" 
-                                autoComplete="email"
+                                autoComplete="email" 
                                 value={formData.email}
                                 onChange={handleChange}
                                 required 
@@ -111,7 +123,7 @@ export function SignupPage() {
                                     id="password" 
                                     name="password" 
                                     type={showPassword ? 'text' : 'password'} 
-                                    placeholder="Create a strong password" 
+                                    placeholder="Create a strong password (min 6 chars)" 
                                     autoComplete="new-password" 
                                     minLength={6}
                                     value={formData.password}
@@ -160,6 +172,14 @@ export function SignupPage() {
                     )}
 
                     <p className="login-card-footer">Already have an account? <Link to="/login">Sign in here</Link></p>
+
+                    <div className="login-guest-option">
+                        <p className="login-guest-prompt">Just want to try out the platform first?</p>
+                        <Link to="/" className="login-guest-link">
+                            <span>Explore as Guest without registering</span>
+                            <ArrowRight size={15} />
+                        </Link>
+                    </div>
                 </section>
             </div>
         </main>

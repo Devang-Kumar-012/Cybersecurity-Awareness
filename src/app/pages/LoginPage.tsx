@@ -1,11 +1,11 @@
 import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Eye, EyeOff, LockKeyhole, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Eye, EyeOff, LockKeyhole, ShieldCheck, Sparkles } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export function LoginPage() {
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, isAuthenticated, user } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(true);
     const [submitted, setSubmitted] = useState(false);
@@ -24,7 +24,7 @@ export function LoginPage() {
             setSubmitted(true);
             setTimeout(() => {
                 navigate('/');
-            }, 1500);
+            }, 1200);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');
         }
@@ -50,23 +50,34 @@ export function LoginPage() {
                     <div className="login-brand-mark"><ShieldCheck size={24} /></div>
                     <p className="login-kicker">Your secure learning space</p>
                     <h1>Keep your progress close.</h1>
-                    <p className="login-intro-copy">Sign in to continue your cyber awareness journey, revisit completed missions, and build stronger digital habits.</p>
-                    <div className="login-trust"><LockKeyhole size={16} /><span>Your learning data stays private.</span></div>
+                    <p className="login-intro-copy">Sign in to save your progress, track your cyber defense accomplishments, and personalize your digital safety certificates.</p>
+                    <div className="login-trust"><LockKeyhole size={16} /><span>Account registration is completely optional.</span></div>
                 </section>
 
                 <section className="login-card" aria-labelledby="login-title">
                     <div className="login-card-heading">
                         <p className="login-kicker">Welcome back</p>
                         <h2 id="login-title">Sign in to continue</h2>
-                        <p>Use the account you created for CyberSecure.</p>
+                        <p>Use your credentials or feel free to explore as a guest.</p>
                     </div>
 
-                    {submitted ? (
+                    {isAuthenticated && !submitted ? (
+                        <div className="login-success" role="status">
+                            <div className="login-success-icon"><Sparkles size={24} /></div>
+                            <h3>Already signed in</h3>
+                            <p>You are currently logged in as <strong>{user?.name || user?.email}</strong>.</p>
+                            <button type="button" className="btn btn-primary btn-md" onClick={() => navigate('/')}>
+                                Return to CyberSecure <ArrowRight size={16} className="login-continue-icon" />
+                            </button>
+                        </div>
+                    ) : submitted ? (
                         <div className="login-success" role="status">
                             <div className="login-success-icon"><ShieldCheck size={24} /></div>
                             <h3>You&apos;re signed in.</h3>
                             <p>Your secure journey is ready whenever you are.</p>
-                            <button type="button" className="btn btn-primary btn-md" onClick={() => navigate('/')}>Continue to journey <ArrowLeft size={16} className="login-continue-icon" /></button>
+                            <button type="button" className="btn btn-primary btn-md" onClick={() => navigate('/')}>
+                                Continue to journey <ArrowRight size={16} className="login-continue-icon" />
+                            </button>
                         </div>
                     ) : (
                         <form className="login-form" onSubmit={handleSubmit}>
@@ -102,11 +113,19 @@ export function LoginPage() {
                             
                             {error && <p className="login-form-message error" role="alert">{error}</p>}
                             
-                            <button type="submit" className="btn btn-primary btn-md login-submit">Sign in <ArrowLeft size={16} className="login-continue-icon" /></button>
+                            <button type="submit" className="btn btn-primary btn-md login-submit">Sign in <ArrowRight size={16} className="login-continue-icon" /></button>
                         </form>
                     )}
 
                     <p className="login-card-footer">New to CyberSecure? <Link to="/signup">Create an account</Link></p>
+
+                    <div className="login-guest-option">
+                        <p className="login-guest-prompt">Don&apos;t want an account right now?</p>
+                        <Link to="/" className="login-guest-link">
+                            <span>Continue exploring as guest</span>
+                            <ArrowRight size={15} />
+                        </Link>
+                    </div>
                 </section>
             </div>
         </main>

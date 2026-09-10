@@ -1,5 +1,32 @@
 # Changes Summary
 
+## Guest Experience & Optional Registration Implementation
+
+### Key Improvements
+
+1. **Unblocked Main Website (`src/App.tsx`)**
+   - Removed the forced `<ProtectedRoute>` authentication blocker from wrapping all routes.
+   - Visitors visiting `/` or any general route can now directly experience the entire platform, journey, threat visualizers, cyber lab, practices, and knowledge challenge.
+
+2. **Refined Navigation & Header Controls (`src/components/layout/SiteHeader.tsx`)**
+   - Guest visitors now see both "Log in" and "Register" options clearly displayed in the navigation bar and mobile drawer.
+   - Smooth React Router SPA navigation (`Link`) used instead of browser reloads.
+   - Authenticated users see their profile badge and a clean "Sign out" button.
+   - Signing out now gracefully switches to guest mode on the platform rather than forcefully kicking the user to the login page.
+
+3. **Guest Escape & Flexibility on Auth Pages (`src/app/pages/LoginPage.tsx` & `src/app/pages/SignupPage.tsx`)**
+   - Added explicit "Continue exploring as guest →" options on both login and signup forms.
+   - "Back to CyberSecure" returns visitors directly to the homepage without bouncing them back.
+   - If already authenticated, users are informed with an instant "Return to CyberSecure" button.
+
+4. **Personalized Digital Certificates (`src/sections/ChallengeSection.tsx`)**
+   - Verified members have their registered name automatically printed on downloadable certificates.
+   - Guest visitors can freely personalize their certificate with any name of their choice before downloading and sharing.
+   - Full quiz, scoring, achievements, and certificate features work for all visitors without requiring registration.
+
+5. **Updated User Documentation (`USER_GUIDE.md`)**
+   - Clarified that account registration is 100% optional and that anyone can experience the platform as a guest.
+
 ## Authentication System Implementation
 
 ### New Files Created

@@ -4,44 +4,35 @@
 
 This guide will help you get started with the Cybersecurity Awareness Platform.
 
-## First Time Visit
+## Experience CyberSecure - No Account Required! 🌟
 
-### Creating Your Account
+You can explore and experience the entire platform immediately without logging in, signing in, or creating an account:
+- **Instant Access**: Jump straight into the 5-step learning journey, explore 12 digital threats, run hands-on Cyber Lab simulations, and take the Cyber Challenge.
+- **Optional Registration**: You can create an account at any time if you want to personalize your digital certificates with a verified member status and save your profile.
 
-1. **Navigate to the Website**
-   - When you first visit the site, you'll be automatically redirected to the login page
+## Exploring as a Guest
 
-2. **Click "Create an account"**
-   - Look for the link at the bottom of the login form
+1. **Visit the Website**
+   - Simply navigate to the homepage — you will never be blocked by a login wall.
+2. **Interact with All Features**
+   - Click through the learning journey, test interactive simulations in the Cyber Lab, and take the cybersecurity test.
+3. **Earn and Personalize Certificates**
+   - Complete the Cyber Challenge and enter any name you choose to generate and download your certificate.
 
-3. **Fill in Your Details**
-   - **Full Name**: Enter your name (e.g., "John Doe")
-   - **Email**: Use a valid email address (e.g., "john@example.com")
-   - **Password**: Choose a strong password (minimum 6 characters)
-   - **Confirm Password**: Re-enter your password to confirm
+## Optional Account Creation & Sign In
 
-4. **Submit**
-   - Click the "Create Account" button
-   - You'll see a success message and be automatically logged in
-   - After 1.5 seconds, you'll be redirected to your learning journey
+If you choose to create an account:
 
-### What Happens After Signup?
-
-- Your account is created and stored securely
-- You're automatically logged in
-- Your name appears in the top navigation bar
-- All learning content becomes accessible
-
-## Returning Users
-
-### Logging In
-
-1. **Visit the Login Page**
-   - If you're not logged in, you'll be redirected automatically
-
-2. **Enter Your Credentials**
-   - Email address you used during signup
-   - Your password
+1. **Click "Register" or "Log in"**
+   - Look in the top navigation bar or the mobile menu.
+2. **Fill in Your Details**
+   - **Full Name**: Enter your name
+   - **Email**: Use a valid email address
+   - **Password**: Choose a password (minimum 6 characters)
+3. **What Happens When Registered?**
+   - Your name appears in the top navigation bar.
+   - Your name is automatically included on your completion certificates with "Verified Member" distinction.
+   - You can sign out anytime and continue browsing seamlessly as a guest.
 
 3. **Sign In**
    - Click the "Sign in" button
@@ -214,7 +205,7 @@ Recommended browsers:
 ### Common Questions
 
 **Q: Do I need to create an account?**
-A: Yes, an account is required to access all learning content and track your progress.
+A: No! You can experience the entire website, browse threats, perform interactive lab simulations, and take the cyber challenge completely freely as a guest without logging in or signing up. Creating an account is completely optional.
 
 **Q: Is my data safe?**
 A: In this demo version, data is stored locally in your browser. For production use, a secure backend would be implemented.

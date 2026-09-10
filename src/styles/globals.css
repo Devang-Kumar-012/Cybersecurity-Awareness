@@ -461,6 +461,101 @@ a:focus-visible {
   transform: translateY(-1px);
 }
 
+.nav-guest-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-register-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38bdf8, #5eead4);
+  color: #06111c;
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.nav-register-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(56, 189, 248, 0.35);
+  filter: brightness(1.05);
+}
+
+.nav-user-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.nav-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #c7bdad;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.nav-logout-btn:hover {
+  background: rgba(244, 63, 94, 0.16);
+  border-color: rgba(244, 63, 94, 0.32);
+  color: #fda4af;
+}
+
+.mobile-guest-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.mobile-user-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  color: #38bdf8;
+  font-weight: 600;
+  padding: 0.35rem 0.2rem;
+}
+
+.mobile-menu-register {
+  background: linear-gradient(135deg, #38bdf8, #5eead4) !important;
+  color: #06111c !important;
+  font-weight: 700;
+}
+
 .journey-section {
   position: relative;
   padding: 1.4rem 0 3.8rem;
@@ -615,6 +710,13 @@ a:focus-visible {
 
 .login-back:hover {
   color: #f2b84b;
+}
+
+.login-back-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
 }
 
 .login-brand-mark,
@@ -807,6 +909,40 @@ a:focus-visible {
 .login-card-footer a {
   color: #f2b84b;
   font-weight: 600;
+}
+
+.login-guest-option {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 248, 232, 0.1);
+  text-align: center;
+}
+
+.login-guest-prompt {
+  margin: 0 0 0.65rem;
+  color: #a69d8e;
+  font-size: 0.84rem;
+}
+
+.login-guest-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(242, 184, 75, 0.28);
+  background: rgba(242, 184, 75, 0.08);
+  color: #f2b84b;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: all 180ms ease;
+}
+
+.login-guest-link:hover {
+  background: rgba(242, 184, 75, 0.16);
+  border-color: rgba(242, 184, 75, 0.45);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 900px) {
@@ -3606,8 +3742,42 @@ a:focus-visible {
   margin: 0 0 0.3rem;
 }
 
+.certificate-guest-name-box {
+  margin: 0.75rem 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.certificate-guest-name-box label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.certificate-guest-name-box input {
+  max-width: 320px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  background: rgba(7, 17, 31, 0.7);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: #f1f5f9;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.certificate-guest-name-box input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
 .certificate-meta {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 0.75rem;
   margin-top: 0.65rem;
   color: #d8e0ea;

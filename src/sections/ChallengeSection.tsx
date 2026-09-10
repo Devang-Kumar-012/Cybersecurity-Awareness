@@ -30,6 +30,7 @@ import {
 import { Container } from '@/components/primitives/Container';
 import { Badge } from '@/components/primitives/Badge';
 import { Button } from '@/components/primitives/Button';
+import { useAuth } from '@/contexts/AuthContext';
 
 type Question = {
   id: string;
@@ -120,12 +121,18 @@ const achievements = [
 ];
 
 export function ChallengeSection() {
+  const { user, isAuthenticated } = useAuth();
+  const [guestName, setGuestName] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [completed, setCompleted] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
+
+  const recipientName = isAuthenticated 
+    ? (user?.name || 'Cyber Member') 
+    : (guestName.trim() || 'Cyber Explorer');
 
   const current = questions[currentIndex];
   const progress = useMemo(() => Math.round(((currentIndex + (selectedAnswer ? 1 : 0)) / questions.length) * 100), [currentIndex, selectedAnswer]);
@@ -162,17 +169,40 @@ export function ChallengeSection() {
   };
 
   const downloadCertificate = () => {
-    const certificate = `Cyber Aware Digital Certificate\nResult: ${resultLabel}\nScore: ${certificateScore}%`;
+    const issueDate = new Date().toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+    const certificate = `=====================================================
+            CYBERSECURE DIGITAL CERTIFICATE
+=====================================================
+
+This certifies that:
+  >> ${recipientName} <<
+
+has completed the Cyber Awareness Knowledge Challenge.
+
+Performance Summary:
+- Distinction Level: ${resultLabel}
+- Cyber Awareness Score: ${certificateScore}% (${score}/5 correct)
+- Issue Date: ${issueDate}
+- Explorer Status: ${isAuthenticated ? 'Verified Registered Member' : 'Guest Explorer'}
+
+Issued by: CyberSecure Awareness Platform
+Stay alert. Stay informed. Stay protected.
+=====================================================`;
     const blob = new Blob([certificate], { type: 'text/plain' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = 'cyber-aware-certificate.txt';
+    const sanitizedName = recipientName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    link.download = `cybersecure-certificate-${sanitizedName}.txt`;
     link.click();
     URL.revokeObjectURL(link.href);
   };
 
   const shareCertificate = async () => {
-    const shareData = { title: 'CyberSecure Certificate', text: `I scored ${certificateScore}% in the CyberSecure challenge.` };
+    const shareData = { title: 'CyberSecure Certificate', text: `${recipientName} scored ${certificateScore}% in the CyberSecure challenge as a ${resultLabel}!` };
     if (navigator.share) {
       await navigator.share(shareData);
       return;
@@ -389,10 +419,25 @@ export function ChallengeSection() {
             <div className="certificate-card">
               <div className="certificate-left">
                 <h4>Cyber Aware Digital Certificate</h4>
-                <p>Issued to visitors who complete the mission with thoughtful, practical choices.</p>
+                <p>
+                  Issued to <strong>{recipientName}</strong> for completing the mission with thoughtful, practical choices.
+                </p>
+                {!isAuthenticated && (
+                  <div className="certificate-guest-name-box">
+                    <label htmlFor="cert-name">Personalize certificate recipient:</label>
+                    <input
+                      id="cert-name"
+                      type="text"
+                      placeholder="Type your name or alias (optional)"
+                      value={guestName}
+                      onChange={(e) => setGuestName(e.target.value)}
+                    />
+                  </div>
+                )}
                 <div className="certificate-meta">
                   <span>{resultLabel}</span>
                   <span>{certificateScore}%</span>
+                  <span>{isAuthenticated ? `Verified: ${user?.name}` : 'Guest Explorer'}</span>
                 </div>
               </div>
               <div className="certificate-actions">

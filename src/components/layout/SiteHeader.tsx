@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Menu, ShieldCheck, X, Accessibility, LogIn, LogOut, User } from 'lucide-react';
+import { ArrowRight, Menu, ShieldCheck, X, Accessibility, LogIn, LogOut, User, UserPlus } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const links = [
   { label: 'Journey', href: '#journey', id: 'journey' },
@@ -74,7 +74,7 @@ export function SiteHeader() {
   const handleLogoutClick = () => {
     logout();
     setMenuOpen(false);
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -113,15 +113,32 @@ export function SiteHeader() {
 
           <div className="nav-actions">
             {isAuthenticated ? (
-              <button type="button" className="nav-login nav-account" onClick={handleLogoutClick}>
-                <User size={15} />
-                <span>{user?.name || 'Account'}</span>
-              </button>
+              <div className="nav-user-group">
+                <span className="nav-user-badge" title={`Signed in as ${user?.email}`}>
+                  <User size={14} />
+                  <span>{user?.name || 'Account'}</span>
+                </span>
+                <button
+                  type="button"
+                  className="nav-logout-btn"
+                  title="Sign out"
+                  onClick={handleLogoutClick}
+                >
+                  <LogOut size={14} />
+                  <span>Sign out</span>
+                </button>
+              </div>
             ) : (
-              <a href="/login" className="nav-login" onClick={handleNavigate}>
-                <LogIn size={15} />
-                <span>Log in</span>
-              </a>
+              <div className="nav-guest-group">
+                <Link to="/login" className="nav-login" onClick={handleNavigate}>
+                  <LogIn size={15} />
+                  <span>Log in</span>
+                </Link>
+                <Link to="/signup" className="nav-register-btn" onClick={handleNavigate}>
+                  <UserPlus size={14} />
+                  <span>Register</span>
+                </Link>
+              </div>
             )}
             <button
               type="button"
@@ -183,15 +200,27 @@ export function SiteHeader() {
                   <span>Keyboard-ready and accessibility focused</span>
                 </div>
                 {isAuthenticated ? (
-                  <button type="button" className="mobile-menu-cta mobile-menu-login" onClick={handleLogoutClick}>
-                    <LogOut size={15} />
-                    Sign out ({user?.name})
-                  </button>
+                  <div className="mobile-user-box">
+                    <div className="mobile-user-info">
+                      <User size={15} />
+                      <span>{user?.name}</span>
+                    </div>
+                    <button type="button" className="mobile-menu-cta mobile-menu-login" onClick={handleLogoutClick}>
+                      <LogOut size={15} />
+                      Sign out
+                    </button>
+                  </div>
                 ) : (
-                  <a href="/login" className="mobile-menu-cta mobile-menu-login" onClick={handleNavigate}>
-                    <LogIn size={15} />
-                    Log in to your journey
-                  </a>
+                  <div className="mobile-guest-box">
+                    <Link to="/login" className="mobile-menu-cta mobile-menu-login" onClick={handleNavigate}>
+                      <LogIn size={15} />
+                      Log in to your journey
+                    </Link>
+                    <Link to="/signup" className="mobile-menu-cta mobile-menu-register" onClick={handleNavigate}>
+                      <UserPlus size={15} />
+                      Create Free Account (Optional)
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>
