@@ -5,38 +5,56 @@ import { CheckCircle2, ShieldAlert, Sparkles, Wifi, RadioTower } from 'lucide-re
 type MissionCardProps = {
   title: string;
   description: string;
+  category?: string;
   active?: boolean;
   locked?: boolean;
+  isCompleted?: boolean;
   icon?: ReactNode;
   statusLabel?: string;
   onClick?: () => void;
 };
 
-export function MissionCard({ title, description, active = false, locked = false, icon, statusLabel, onClick }: MissionCardProps) {
+export function MissionCard({
+  title,
+  description,
+  category,
+  active = false,
+  locked = false,
+  isCompleted = false,
+  icon,
+  statusLabel,
+  onClick
+}: MissionCardProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.button
       type="button"
-      className={`mission-card ${active ? 'active' : ''} ${locked ? 'locked' : ''}`}
+      className={`mission-card ${active ? 'active' : ''} ${locked ? 'locked' : ''} ${isCompleted ? 'completed' : ''}`}
       onClick={onClick}
       disabled={locked}
       initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
       whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
     >
       <div className="mission-card-top">
-        <div className="mission-card-icon">{icon}</div>
-        <div className="mission-card-badge">{locked ? 'Locked' : statusLabel ?? 'Ready'}</div>
+        <div className="mission-card-title-group">
+          <div className="mission-card-icon">{icon}</div>
+          <div>
+            <h4>{title}</h4>
+            {category && <span className="mission-card-category">{category}</span>}
+          </div>
+        </div>
+        <div className={`mission-card-badge ${isCompleted ? 'completed' : active ? 'active' : ''}`}>
+          {isCompleted ? 'Resolved' : locked ? 'Locked' : statusLabel ?? 'Ready'}
+        </div>
       </div>
-      <div className="mission-card-body">
-        <h4>{title}</h4>
-        <p>{description}</p>
-      </div>
+      <p className="mission-card-desc">{description}</p>
       <div className="mission-card-footer">
-        {locked ? <ShieldAlert size={14} /> : <CheckCircle2 size={14} />}
-        <span>{locked ? 'Coming soon' : 'Available now'}</span>
+        <span className="mission-card-status-dot" />
+        <span>{isCompleted ? 'Investigation resolved' : active ? 'Live in workspace' : 'Ready to investigate'}</span>
+        {isCompleted ? <CheckCircle2 size={13} className="mission-done-icon" /> : null}
       </div>
     </motion.button>
   );

@@ -177,6 +177,28 @@ export function CommonThreatsSection() {
     ? threats.find((threat) => threat.id === hoveredThreatId) ?? selectedThreat
     : selectedThreat;
 
+  const threatToLabMap: Record<string, string> = {
+    phishing: 'phishing',
+    malware: 'browser',
+    ransomware: 'login',
+    'social-engineering': 'social',
+    'identity-theft': 'website',
+    'password-attacks': 'password',
+    'qr-codes': 'qr',
+    'public-wifi': 'wifi',
+    deepfakes: 'deepfake',
+    bec: 'phishing',
+    spyware: 'sms',
+    'data-breaches': 'login'
+  };
+
+  const handleInvestigateThreat = (threatId: string) => {
+    const labMission = threatToLabMap[threatId] || 'phishing';
+    window.dispatchEvent(new CustomEvent('select-cyber-mission', { detail: labMission }));
+    const lab = document.getElementById('interactive');
+    lab?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="threats-section" id="threats">
       <Container>
@@ -275,10 +297,17 @@ export function CommonThreatsSection() {
               </div>
 
               <div className="detail-footer">
-                <span>Interactive awareness</span>
-                <Button variant="secondary" rightIcon={<ArrowRight size={15} />} onClick={() => window.location.hash = 'challenge'}>
-                  Explore more
-                </Button>
+                <span>Threat simulation ready</span>
+                <div style={{ display: 'flex', gap: '0.6rem' }}>
+                  <Button variant="primary" size="sm" rightIcon={<ArrowRight size={14} />} onClick={() => handleInvestigateThreat(displayThreat.id)}>
+                    Investigate in Lab
+                  </Button>
+                  <Button variant="secondary" size="sm" onClick={() => {
+                    document.getElementById('challenge')?.scrollIntoView({ behavior: 'smooth' });
+                  }}>
+                    Test Knowledge
+                  </Button>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>

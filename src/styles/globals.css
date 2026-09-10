@@ -2158,284 +2158,618 @@ a:focus-visible {
 
 .mission-card-list {
   display: grid;
-  gap: 0.7rem;
-  margin-top: 0.9rem;
+  gap: 0.55rem;
+  margin-top: 0.6rem;
+}
+
+.mission-card-list.compressed-queue {
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 0.35rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(53, 215, 255, 0.35) rgba(255, 255, 255, 0.04);
+}
+
+.mission-card-list.compressed-queue::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mission-card-list.compressed-queue::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+}
+
+.mission-card-list.compressed-queue::-webkit-scrollbar-thumb {
+  background: rgba(53, 215, 255, 0.3);
+  border-radius: 999px;
+}
+
+.mission-card-list.compressed-queue::-webkit-scrollbar-thumb:hover {
+  background: rgba(53, 215, 255, 0.55);
+}
+
+.lab-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lab-filter-btn {
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #9aa8bc;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.lab-filter-btn:hover {
+  color: #7de8ff;
+  background: rgba(53, 215, 255, 0.1);
+  border-color: rgba(53, 215, 255, 0.25);
+}
+
+.lab-filter-btn.active {
+  color: #07111f;
+  background: #35d7ff;
+  border-color: #35d7ff;
+  font-weight: 700;
 }
 
 .mission-card {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.35rem;
   width: 100%;
-  padding: 0.8rem 0.9rem;
-  border-radius: 1rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.035);
   color: #f7faff;
   text-align: left;
-  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
 .mission-card:hover,
 .mission-card:focus-visible {
   transform: translateY(-1px);
   border-color: rgba(53, 215, 255, 0.28);
-  background: rgba(53, 215, 255, 0.1);
+  background: rgba(53, 215, 255, 0.08);
 }
 
 .mission-card.active {
-  border-color: rgba(53, 215, 255, 0.3);
-  background: linear-gradient(135deg, rgba(53, 215, 255, 0.14), rgba(122, 92, 255, 0.12));
+  border-color: rgba(53, 215, 255, 0.4);
+  background: linear-gradient(135deg, rgba(53, 215, 255, 0.16), rgba(122, 92, 255, 0.12));
+  box-shadow: 0 4px 18px rgba(53, 215, 255, 0.1);
 }
 
-.mission-card.locked {
-  opacity: 0.7;
+.mission-card.completed {
+  border-color: rgba(134, 239, 172, 0.3);
+  background: rgba(134, 239, 172, 0.04);
 }
 
-.mission-card-top,
-.mission-card-footer {
+.mission-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.mission-card-title-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.65rem;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.mission-card-title-group h4 {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mission-card-category {
+  display: block;
+  font-size: 0.68rem;
+  color: #7de8ff;
+  opacity: 0.8;
 }
 
 .mission-card-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.8rem;
-  background: rgba(53, 215, 255, 0.14);
+  width: 1.85rem;
+  height: 1.85rem;
+  flex-shrink: 0;
+  border-radius: 0.6rem;
+  background: rgba(53, 215, 255, 0.12);
   color: #7de8ff;
 }
 
 .mission-card-badge {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
   color: #8ea0b8;
+  white-space: nowrap;
 }
 
-.mission-card-body h4 {
-  margin: 0 0 0.28rem;
-  font-size: 0.96rem;
+.mission-card-badge.active {
+  background: rgba(53, 215, 255, 0.2);
+  color: #7de8ff;
+  border: 1px solid rgba(53, 215, 255, 0.3);
 }
 
-.mission-card-body p {
+.mission-card-badge.completed {
+  background: rgba(134, 239, 172, 0.18);
+  color: #86efac;
+  border: 1px solid rgba(134, 239, 172, 0.35);
+}
+
+.mission-card-desc {
   margin: 0;
   color: #9aa8bc;
-  font-size: 0.88rem;
-  line-height: 1.55;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .mission-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   color: #8ea0b8;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
+  margin-top: 0.1rem;
 }
 
-.mission-progress-pill {
-  display: grid;
-  gap: 0.45rem;
-  padding: 0.75rem 0.8rem;
-  border-radius: 0.95rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.mission-card-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #35d7ff;
 }
 
-.mission-progress-copy {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  color: #d8e0ea;
-  font-size: 0.85rem;
+.mission-card.completed .mission-card-status-dot {
+  background: #86efac;
 }
 
-.mission-progress-track {
-  width: 100%;
-  height: 7px;
-  border-radius: 999px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
+.mission-done-icon {
+  margin-left: auto;
+  color: #86efac;
 }
 
-.mission-progress-fill {
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #35d7ff, #7a5cff);
-}
-
-.threat-level-badge {
+.lab-reset-link {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.42rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.threat-level-badge.elevated {
-  background: rgba(255, 184, 76, 0.16);
-  color: #ffd38b;
-}
-
-.status-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.4rem 0.6rem;
-  border-radius: 999px;
-  font-size: 0.74rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.status-chip.online {
-  color: #7de8ff;
-  background: rgba(53, 215, 255, 0.12);
-}
-
-.status-chip.idle {
-  color: #9aa8bc;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.workspace-topbar-copy p {
-  margin: 0.3rem 0 0;
-  color: #9aa8bc;
-}
-
-.workspace-topbar-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.7rem;
-}
-
-.progress-ring-shell {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.progress-ring-svg {
-  transform: rotate(-90deg);
-}
-
-.progress-ring-track,
-.progress-ring-value {
-  fill: none;
-}
-
-.progress-ring-track {
-  stroke: rgba(255, 255, 255, 0.12);
-  stroke-width: 7;
-}
-
-.progress-ring-value {
-  stroke: url(#ring-gradient);
-  stroke-width: 7;
-}
-
-.progress-ring-label {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin-top: 0.75rem;
+  padding: 0.3rem 0.5rem;
+  border: none;
+  background: transparent;
+  color: #8ea0b8;
   font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.lab-reset-link:hover {
+  color: #fda4af;
+}
+
+.workspace-category-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #35d7ff;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+/* Evidence Console & Interactive Simulation Styles */
+.evidence-console {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(7, 17, 31, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+.evidence-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.evidence-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #7de8ff;
+}
+
+.evidence-header-left h6 {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
   color: #f7faff;
 }
 
-.progress-ring-label span {
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.progress-ring-label small {
-  color: #8ea0b8;
-}
-
-.workspace-surface {
-  position: relative;
-  display: grid;
-  gap: 0.95rem;
-  padding: 1rem;
-  min-height: 420px;
-  border-radius: 1.2rem;
+/* Realistic Mockup Box */
+.evidence-mockup-card {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(53, 215, 255, 0.22);
+  background: rgba(11, 23, 42, 0.95);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: radial-gradient(circle at top left, rgba(53, 215, 255, 0.16), transparent 28%), rgba(7, 17, 31, 0.76);
+  box-shadow: 0 8px 24px rgba(2, 8, 23, 0.4);
 }
 
-.workspace-glow {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.workspace-surface-copy h5 {
-  margin: 0.3rem 0 0.35rem;
-  font-size: 1.02rem;
-}
-
-.workspace-surface-copy p {
-  margin: 0;
-  color: #c0c9d7;
-  max-width: 560px;
-}
-
-.workspace-surface-grid {
-  display: grid;
-  gap: 0.6rem;
-  min-width: 180px;
-}
-
-.workspace-mini-card {
+.mockup-topbar {
   display: flex;
   align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mockup-traffic-lights {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.mockup-traffic-lights .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.mockup-traffic-lights .dot.red { background: #fb7185; }
+.mockup-traffic-lights .dot.yellow { background: #fbbf24; }
+.mockup-traffic-lights .dot.green { background: #86efac; }
+
+.mockup-source-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mockup-body {
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  padding: 0.7rem 0.8rem;
-  border-radius: 0.9rem;
+}
+
+.mockup-subject {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #ffd38b;
+}
+
+.mockup-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mockup-details li {
+  font-size: 0.82rem;
+  color: #d1d5db;
+  line-height: 1.45;
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.bullet-indicator {
+  color: #35d7ff;
+  font-weight: bold;
+}
+
+.mockup-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.65rem;
+  margin-top: 0.3rem;
+  border-radius: 0.45rem;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  color: #fde047;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+/* Clues Section */
+.clues-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.clues-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #7de8ff;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.clues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.55rem;
+}
+
+.clue-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.65rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
-  color: #e7edfa;
-  font-size: 0.88rem;
+  color: #f7faff;
+  text-align: left;
+  cursor: pointer;
+  transition: all 160ms ease;
 }
 
-.workspace-hint-card {
-  position: relative;
-  z-index: 2;
+.clue-card:hover {
+  border-color: rgba(53, 215, 255, 0.3);
+  background: rgba(53, 215, 255, 0.06);
+}
+
+.clue-card.revealed {
+  border-color: rgba(53, 215, 255, 0.45);
+  background: rgba(53, 215, 255, 0.08);
+}
+
+.clue-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(7, 17, 31, 0.7);
+  gap: 0.4rem;
 }
 
-.workspace-hint-card h6 {
-  margin: 0.2rem 0 0;
-  font-size: 0.96rem;
+.clue-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e2e8f0;
 }
 
-.workspace-hint-actions {
+.clue-toggle-text {
+  font-size: 0.7rem;
+  color: #35d7ff;
+  font-weight: 500;
+}
+
+.clue-detail {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  line-height: 1.45;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 0.4rem;
+}
+
+/* Tactical Actions Section */
+.actions-section {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.2rem;
+}
+
+.actions-prompt {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.tactical-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.55rem;
+}
+
+.tactical-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f1f5f9;
+  text-align: left;
+  cursor: pointer;
+  transition: all 160ms ease;
+  min-height: 52px;
+}
+
+.tactical-btn:hover {
+  border-color: rgba(53, 215, 255, 0.4);
+  background: rgba(53, 215, 255, 0.09);
+  transform: translateY(-1px);
+}
+
+.tactical-btn-content {
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.tactical-status-indicator {
+  font-size: 0.72rem;
+  margin-top: 0.35rem;
+  font-weight: 600;
+}
+
+.tactical-btn.correct {
+  border-color: rgba(134, 239, 172, 0.5);
+  background: rgba(134, 239, 172, 0.12);
+  color: #86efac;
+}
+
+.tactical-btn.incorrect {
+  border-color: rgba(251, 113, 133, 0.5);
+  background: rgba(251, 113, 133, 0.12);
+  color: #fda4af;
+}
+
+/* Real-time Feedback Banner */
+.action-feedback-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.action-feedback-box.safe {
+  background: rgba(134, 239, 172, 0.12);
+  border: 1px solid rgba(134, 239, 172, 0.35);
+  color: #ecfdf5;
+}
+
+.action-feedback-box.safe .feedback-icon {
+  color: #86efac;
+}
+
+.action-feedback-box.danger {
+  background: rgba(251, 113, 133, 0.12);
+  border: 1px solid rgba(251, 113, 133, 0.35);
+  color: #fff1f2;
+}
+
+.action-feedback-box.danger .feedback-icon {
+  color: #fb7185;
+}
+
+.feedback-copy strong {
+  display: block;
+  font-size: 0.86rem;
+  margin-bottom: 0.15rem;
+}
+
+.feedback-copy p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  opacity: 0.9;
+}
+
+.feedback-action-btn {
+  margin-left: auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: #86efac;
+  color: #064e3b;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 140ms ease;
+}
+
+.feedback-action-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Workspace Footer Controls */
+.workspace-footer-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.badge-resolved {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #86efac;
+}
+
+.badge-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.workspace-footer-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.btn-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.btn-text:hover {
+  color: #f1f5f9;
 }
 
 .cyber-lab-scene {
