@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowRight, Menu, ShieldCheck, X, Accessibility, LogIn } from 'lucide-react';
+import { ArrowRight, Menu, ShieldCheck, X, Accessibility, LogIn, LogOut, User } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const links = [
   { label: 'Journey', href: '#journey', id: 'journey' },
@@ -8,7 +10,6 @@ const links = [
   { label: 'Threats', href: '#threats', id: 'threats' },
   { label: 'Lab', href: '#interactive', id: 'interactive' },
   { label: 'Toolkit', href: '#practices', id: 'practices' },
-  { label: 'Resources', href: '#resources', id: 'resources' },
   { label: 'Contact', href: '#contact', id: 'contact' }
 ];
 
@@ -16,15 +17,9 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isAuthenticated, logout, user } = useAuth();
+  const navigate = useNavigate();
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    const syncAuthState = () => setIsLoggedIn(window.localStorage.getItem('cybersecure-authenticated') === 'true');
-    syncAuthState();
-    window.addEventListener('cybersecure-auth-change', syncAuthState);
-    return () => window.removeEventListener('cybersecure-auth-change', syncAuthState);
-  }, []);
 
   useEffect(() => {
     const updateHeaderState = () => {
@@ -76,9 +71,10 @@ export function SiteHeader() {
     setMenuOpen(false);
   };
 
-  const handleLogout = () => {
-    window.localStorage.removeItem('cybersecure-authenticated');
-    setIsLoggedIn(false);
+  const handleLogoutClick = () => {
+    logout();
+    setMenuOpen(false);
+    navigate('/login');
   };
 
   return (
@@ -116,10 +112,10 @@ export function SiteHeader() {
           </nav>
 
           <div className="nav-actions">
-            {isLoggedIn ? (
-              <button type="button" className="nav-login nav-account" onClick={handleLogout}>
-                <ShieldCheck size={15} />
-                <span>Signed in</span>
+            {isAuthenticated ? (
+              <button type="button" className="nav-login nav-account" onClick={handleLogoutClick}>
+                <User size={15} />
+                <span>{user?.name || 'Account'}</span>
               </button>
             ) : (
               <a href="/login" className="nav-login" onClick={handleNavigate}>
@@ -186,10 +182,10 @@ export function SiteHeader() {
                   <Accessibility size={14} />
                   <span>Keyboard-ready and accessibility focused</span>
                 </div>
-                {isLoggedIn ? (
-                  <button type="button" className="mobile-menu-cta mobile-menu-login" onClick={handleLogout}>
-                    <ShieldCheck size={15} />
-                    Sign out
+                {isAuthenticated ? (
+                  <button type="button" className="mobile-menu-cta mobile-menu-login" onClick={handleLogoutClick}>
+                    <LogOut size={15} />
+                    Sign out ({user?.name})
                   </button>
                 ) : (
                   <a href="/login" className="mobile-menu-cta mobile-menu-login" onClick={handleNavigate}>

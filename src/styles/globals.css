@@ -20,8 +20,8 @@ html {
 }
 
 section[id],
-[ id="resources"],
-[ id="contact"] {
+[id="resources"],
+[id="contact"] {
   scroll-margin-top: 140px;
 }
 
@@ -770,6 +770,11 @@ a:focus-visible {
   margin: 0.5rem 0 0;
   color: #86b9a4;
   font-size: 0.8rem;
+}
+
+.login-form-message.error {
+  color: #f87171;
+  font-weight: 500;
 }
 
 .login-success {

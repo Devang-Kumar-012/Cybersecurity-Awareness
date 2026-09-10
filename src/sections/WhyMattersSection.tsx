@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Briefcase, Cloud, CreditCard, MonitorSmartphone, ShieldCheck, ShoppingBag, Smartphone, Sparkles, Users, Wallet, Gamepad2, MessageCircleMore, GraduationCap, Mail } from 'lucide-react';
 import { Container } from '@/components/primitives/Container';
 import { Badge } from '@/components/primitives/Badge';
-import { Button } from '@/components/primitives/Button';
 
 const nodes = [
   { icon: Smartphone, label: 'Mobile', color: 'cyan' },

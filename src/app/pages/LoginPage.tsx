@@ -1,23 +1,40 @@
 import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Eye, EyeOff, LockKeyhole, ShieldCheck } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export function LoginPage() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(true);
     const [submitted, setSubmitted] = useState(false);
-    const [forgotMessage, setForgotMessage] = useState('');
+    const [error, setError] = useState('');
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        window.localStorage.setItem('cybersecure-authenticated', 'true');
-        window.dispatchEvent(new Event('cybersecure-auth-change'));
-        setSubmitted(true);
+        setError('');
+
+        try {
+            await login(formData.email, formData.password);
+            setSubmitted(true);
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred');
+        }
     };
 
-    const handleForgotPassword = () => {
-        setForgotMessage('Enter your email and we will send recovery instructions.');
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
     };
 
     return (
@@ -54,24 +71,42 @@ export function LoginPage() {
                     ) : (
                         <form className="login-form" onSubmit={handleSubmit}>
                             <label htmlFor="email">Email address</label>
-                            <input id="email" name="email" type="email" placeholder="you@example.com" autoComplete="email" required />
-                            <div className="login-label-row">
-                                <label htmlFor="password">Password</label>
-                                <button type="button" className="text-button" onClick={handleForgotPassword}>Forgot password?</button>
-                            </div>
+                            <input 
+                                id="email" 
+                                name="email" 
+                                type="email" 
+                                placeholder="you@example.com" 
+                                autoComplete="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required 
+                            />
+                            <label htmlFor="password">Password</label>
                             <div className="password-field">
-                                <input id="password" name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" autoComplete="current-password" minLength={6} required />
+                                <input 
+                                    id="password" 
+                                    name="password" 
+                                    type={showPassword ? 'text' : 'password'} 
+                                    placeholder="Enter your password" 
+                                    autoComplete="current-password" 
+                                    minLength={6}
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required 
+                                />
                                 <button type="button" className="password-toggle" aria-label={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword((value) => !value)}>
                                     {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
                                 </button>
                             </div>
                             <label className="checkbox-label"><input type="checkbox" checked={rememberMe} onChange={(event) => setRememberMe(event.target.checked)} /><span>Keep me signed in on this device</span></label>
+                            
+                            {error && <p className="login-form-message error" role="alert">{error}</p>}
+                            
                             <button type="submit" className="btn btn-primary btn-md login-submit">Sign in <ArrowLeft size={16} className="login-continue-icon" /></button>
-                            {forgotMessage ? <p className="login-form-message" role="status">{forgotMessage}</p> : null}
                         </form>
                     )}
 
-                    <p className="login-card-footer">New to CyberSecure? <Link to="/">Explore the experience</Link></p>
+                    <p className="login-card-footer">New to CyberSecure? <Link to="/signup">Create an account</Link></p>
                 </section>
             </div>
         </main>
